@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ChangeSize : MonoBehaviour
+{
+    public Texture2D sprite;
+    public CursorMode cursorMode = CursorMode.ForceSoftware;
+    public Vector2 hotSpot = Vector2.zero;
+    public int size;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Cursor.SetCursor(ResizeTexture(sprite, size, size), hotSpot, cursorMode);
+        }
+    }
+    static Texture2D ResizeTexture(Texture2D srcTexture, int newWidth, int newHeight)
+    {
+        var resizedTexture = new Texture2D(newWidth, newHeight, TextureFormat.RGBA32, false);
+        Graphics.ConvertTexture(srcTexture, resizedTexture);
+        return resizedTexture;
+    }
+}
